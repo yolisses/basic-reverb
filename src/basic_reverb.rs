@@ -4,17 +4,17 @@ use crate::diffuser_half_lengths::DiffuserHalfLengths;
 use crate::multi_channel_mixed_feedback::MultiChannelMixedFeedback;
 
 pub(crate) struct BasicReverb {
-    dry: f64,
-    wet: f64,
     feedback: MultiChannelMixedFeedback,
     diffuser: DiffuserHalfLengths,
+    dry: f64,
+    wet: f64,
 }
 
 impl BasicReverb {
     pub(crate) fn new(roomSizeMs: f64, rt60: f64, dry: f64, wet: f64) -> Self {
-let feedback = 
-
-        // feedback.delayMs = roomSizeMs;
+        let diffuser = DiffuserHalfLengths::new(roomSizeMs);
+        let feedback = MultiChannelMixedFeedback::new();
+        feedback.delayMs = roomSizeMs;
 
         // How long does our signal take to go around the feedback loop?
         let typicalLoopMs = roomSizeMs * 1.5;
@@ -23,15 +23,22 @@ let feedback =
         // This tells us how many dB to reduce per loop
         let dbPerCycle = -60. / loopsPerRt60;
 
-        feedback.decayGain = std::pow(10, dbPerCycle * 0.05);
+        feedback.decayGain = f64::powf(10., dbPerCycle * 0.05);
+
+        Self {
+            feedback,
+            diffuser,
+            dry,
+            wet,
+        }
     }
 
-    pub(crate) fn configure(sampleRate: usize) {
-        // feedback.configure(sampleRate);
-        // diffuser.configure(sampleRate);
+    pub(crate) fn configure(&mut self, sampleRate: f64) {
+        self.feedback.configure(sampleRate);
+        self.diffuser.configure(sampleRate);
     }
 
-    pub(crate) fn process(&mut self, input: &[f64]) -> Array {
+    pub(crate) fn process(&mut self, input: Array) -> Array {
         let diffuse = self.diffuser.process(input);
         let longLasting = self.feedback.process(diffuse);
         let output = [0.; CHANNELS];
