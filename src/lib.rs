@@ -1,4 +1,9 @@
+mod constants;
+mod delay;
+mod diffuser;
+mod diffusion_step;
 mod hadmard;
 mod hadmard_test;
 mod householder;
 mod householder_test;
+mod reverb;
