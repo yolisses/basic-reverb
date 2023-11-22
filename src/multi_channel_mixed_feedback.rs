@@ -22,7 +22,7 @@ impl MultiChannelMixedFeedback {
     }
 
     pub(crate) fn process(&mut self, input: Array) -> Array {
-        let mut delayed: Array;
+        let mut delayed = [0.; CHANNELS];
         for c in 0..CHANNELS {
             delayed[c] = self.delays[c].read(self.delaySamples[c]);
         }

@@ -2,7 +2,6 @@ mod array;
 mod basic_reverb;
 mod constants;
 mod delay;
-mod diffuser;
 mod diffuser_half_lengths;
 mod diffusion_step;
 mod hadmard;
