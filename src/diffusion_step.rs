@@ -1,3 +1,4 @@
+use crate::array::Array;
 use crate::constants::CHANNELS;
 use crate::delay::Delay;
 use crate::hadmard::Hadamard;
@@ -28,7 +29,7 @@ impl DiffusionStep {
         }
     }
 
-    pub(crate) fn process(&mut self, input: [f64; CHANNELS]) -> [f64; CHANNELS] {
+    pub(crate) fn process(&mut self, input: Array) -> Array {
         // Delay
         let delayed = [0.; CHANNELS];
         for c in 0..CHANNELS {

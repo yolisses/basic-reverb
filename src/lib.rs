@@ -1,3 +1,5 @@
+mod array;
+mod basic_reverb;
 mod constants;
 mod delay;
 mod diffuser;
@@ -9,4 +11,3 @@ mod householder;
 mod householder_test;
 mod multi_channel_mixed_feedback;
 mod random_in_range;
-mod reverb;

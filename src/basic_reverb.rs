@@ -1,3 +1,4 @@
+use crate::array::Array;
 use crate::constants::CHANNELS;
 use crate::multi_channel_mixed_feedback::MultiChannelMixedFeedback;
 
@@ -29,7 +30,7 @@ let feedback =
         // diffuser.configure(sampleRate);
     }
 
-    pub(crate) fn process(&mut self, input: &[f64]) -> [f64; CHANNELS] {
+    pub(crate) fn process(&mut self, input: &[f64]) -> Array {
         let diffuse = self.diffuser.process(input);
         let longLasting = self.feedback.process(diffuse);
         let output = [0.; CHANNELS];
