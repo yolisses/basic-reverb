@@ -6,7 +6,7 @@ pub(crate) struct DiffuserHalfLengths {
 
 // new
 impl DiffuserHalfLengths {
-    pub(crate) fn new(mut diffusionMs: f64) -> Self {
+    pub(crate) fn new(mut diffusion_ms: f64) -> Self {
         // Adapt
         let mut steps: Vec<DiffusionStep> = vec![];
 
@@ -15,8 +15,8 @@ impl DiffuserHalfLengths {
         }
 
         for step in &mut steps {
-            diffusionMs *= 0.5;
-            step.delayMsRange = diffusionMs;
+            diffusion_ms *= 0.5;
+            step.delayMsRange = diffusion_ms;
         }
 
         Self { steps }

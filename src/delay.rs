@@ -10,9 +10,9 @@ impl Delay {
         }
     }
 
-    pub(crate) fn resize(&mut self, minCapacity: i64) {
+    pub(crate) fn resize(&mut self, min_capacity: i64) {
         // TODO use the previous values instead of hard reset
-        self.buffer = vec![0.; minCapacity as usize];
+        self.buffer = vec![0.; min_capacity as usize];
     }
 
     pub(crate) fn write(&mut self, value: f64) {
@@ -20,8 +20,8 @@ impl Delay {
         self.buffer.pop();
     }
 
-    pub(crate) fn read(&mut self, delaySamples: i64) -> f64 {
-        self.buffer[delaySamples as usize]
+    pub(crate) fn read(&mut self, delay_samples: i64) -> f64 {
+        self.buffer[delay_samples as usize]
     }
 }
 
