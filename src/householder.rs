@@ -3,7 +3,7 @@ pub(crate) struct Householder {}
 // Use like `Householder::inPlace(data)`
 // data.len() must be ≥ 1
 impl Householder {
-    pub(crate) fn in_place(data: &mut [f64]) {
+    pub(crate) fn inPlace(data: &mut [f64]) {
         let size = data.len();
         let multiplier = -2. / size as f64;
 
