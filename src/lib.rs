@@ -6,4 +6,5 @@ mod hadmard;
 mod hadmard_test;
 mod householder;
 mod householder_test;
+mod multi_channel_mixed_feedback;
 mod reverb;

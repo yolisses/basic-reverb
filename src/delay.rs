@@ -1,7 +1,7 @@
 pub(crate) struct Delay {}
 
 impl Delay {
-    pub(crate) fn reset() {
+    pub(crate) fn reset(&mut self) {
         // TODO
     }
 
