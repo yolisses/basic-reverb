@@ -1,5 +1,6 @@
 use crate::constants::CHANNELS;
 use crate::delay::Delay;
+use crate::hadmard::Hadamard;
 use crate::random_in_range::random_in_range;
 
 // TODO
@@ -25,5 +26,27 @@ impl DiffusionStep {
             self.delays[c].reset();
             self.flipPolarity[c] = random_bool();
         }
+    }
+
+    pub(crate) fn process(&mut self, input: [f64; CHANNELS]) -> [f64; CHANNELS] {
+        // Delay
+        let delayed = [0.; CHANNELS];
+        for c in 0..CHANNELS {
+            self.delays[c].write(input[c]);
+            delayed[c] = self.delays[c].read(self.delaySamples[c]);
+        }
+
+        // Mix with a Hadamard matrix
+        let mixed = delayed;
+        Hadamard::inPlace(&mut mixed);
+
+        // Flip some polarities
+        for c in 0..CHANNELS {
+            if (self.flipPolarity[c]) {
+                mixed[c] *= -1.;
+            }
+        }
+
+        return mixed;
     }
 }
