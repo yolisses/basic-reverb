@@ -33,9 +33,9 @@ impl BasicReverb {
         }
     }
 
-    pub(crate) fn configure(&mut self, sampleRate: f64) {
-        self.feedback.configure(sampleRate);
-        self.diffuser.configure(sampleRate);
+    pub(crate) fn configure(&mut self) {
+        self.feedback.configure();
+        self.diffuser.configure();
     }
 
     pub(crate) fn process(&mut self, input: Array) -> Array {

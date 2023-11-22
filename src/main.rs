@@ -14,6 +14,7 @@ mod householder;
 mod householder_test;
 mod multi_channel_mixed_feedback;
 mod random_in_range;
+mod sample_rate;
 
 pub fn main() {
     let input = [

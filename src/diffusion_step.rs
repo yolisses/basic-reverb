@@ -3,6 +3,7 @@ use crate::constants::CHANNELS;
 use crate::delay::Delay;
 use crate::hadmard::Hadamard;
 use crate::random_in_range::random_in_range;
+use crate::sample_rate::SAMPLE_RATE;
 
 // TODO
 fn random_bool() -> bool {
@@ -18,8 +19,8 @@ pub(crate) struct DiffusionStep {
 }
 
 impl DiffusionStep {
-    pub(crate) fn configure(&mut self, sampleRate: f64) {
-        let delaySamplesRange = self.delayMsRange * 0.001 * sampleRate;
+    pub(crate) fn configure(&mut self) {
+        let delaySamplesRange = self.delayMsRange * 0.001 * SAMPLE_RATE;
         for c in 0..CHANNELS {
             // Adapt
             self.delays.push(Delay::new(0));

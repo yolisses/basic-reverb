@@ -22,9 +22,9 @@ impl DiffuserHalfLengths {
         Self { steps }
     }
 
-    pub(crate) fn configure(&mut self, sampleRate: f64) {
+    pub(crate) fn configure(&mut self) {
         for step in &mut self.steps {
-            step.configure(sampleRate);
+            step.configure();
         }
     }
 
