@@ -5,11 +5,6 @@ use crate::hadmard::Hadamard;
 use crate::sample_rate::SAMPLE_RATE;
 use rand::Rng;
 
-// TODO
-fn random_bool() -> bool {
-    true
-}
-
 // TODO consider removing this derive
 pub(crate) struct DiffusionStep {
     pub(crate) delay_ms_range: f64,
@@ -39,7 +34,9 @@ impl DiffusionStep {
             delay_samples[i] = random.gen_range(range_low..range_high);
             delays[i].resize(delay_samples[i] + 1);
             delays[i].reset();
-            flip_polarity[i] = random_bool();
+
+            let mut random = rand::thread_rng();
+            flip_polarity[i] = random.gen_bool(0.5);
         }
 
         Self {
