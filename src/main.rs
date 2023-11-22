@@ -22,11 +22,11 @@ pub fn main() {
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
     ];
 
-    let roomSizeMs: f64 = 500.;
+    let room_size_ms: f64 = 500.;
     let rt60: f64 = 0.5;
     let dry: f64 = 0.2;
     let wet: f64 = 0.8;
-    let mut basic_reverb = BasicReverb::new(roomSizeMs, rt60, dry, wet);
+    let mut basic_reverb = BasicReverb::new(room_size_ms, rt60, dry, wet);
 
     let mut result = vec![];
     for sample in input {
