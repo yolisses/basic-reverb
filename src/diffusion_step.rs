@@ -5,7 +5,6 @@ use crate::hadmard::Hadamard;
 use crate::sample_rate::SAMPLE_RATE;
 use rand::Rng;
 
-// TODO consider removing this derive
 pub(crate) struct DiffusionStep {
     pub(crate) delay_ms_range: f64,
     delay_samples: [i64; CHANNELS],
