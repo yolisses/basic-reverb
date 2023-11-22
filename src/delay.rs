@@ -16,6 +16,10 @@ impl Delay {
     }
 
     pub(crate) fn read(&self) -> f64 {
-        self.buffer[0]
+        *self
+            .buffer
+            .last()
+            .ok_or("missing buffer last value")
+            .unwrap()
     }
 }
