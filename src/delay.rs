@@ -1,4 +1,4 @@
-// TODO consider replacing it
+// TODO consider removing this derive
 #[derive(Clone, Copy)]
 pub(crate) struct Delay {}
 

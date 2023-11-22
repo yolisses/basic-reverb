@@ -1,5 +1,6 @@
 use crate::array::Array;
 use crate::constants::CHANNELS;
+use crate::diffuser_half_lengths::DiffuserHalfLengths;
 use crate::multi_channel_mixed_feedback::MultiChannelMixedFeedback;
 
 pub(crate) struct BasicReverb {

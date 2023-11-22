@@ -9,8 +9,10 @@ fn random_bool() -> bool {
     true
 }
 
+// TODO consider removing this derive
+#[derive(Clone, Copy)]
 pub(crate) struct DiffusionStep {
-    delayMsRange: f64,
+    pub(crate) delayMsRange: f64,
     delaySamples: [i64; CHANNELS],
     delays: [Delay; CHANNELS],
     flipPolarity: [bool; CHANNELS],
