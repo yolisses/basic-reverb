@@ -28,12 +28,14 @@ pub fn main() {
     let wet: f64 = 0.8;
     let mut basic_reverb = BasicReverb::new(roomSizeMs, rt60, dry, wet);
 
+    let mut result = vec![];
     for sample in input {
         let output = basic_reverb.process([sample; CHANNELS]);
         let mut sum = 0.;
         for c in 0..CHANNELS {
             sum += output[c];
         }
-        print!("{}", sum);
+        result.push(sum);
     }
+    println!("{:?}", result);
 }
