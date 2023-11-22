@@ -5,7 +5,7 @@ impl Delay {
         // TODO
     }
 
-    pub(crate) fn resize(&mut self, minCapacity: usize) {
+    pub(crate) fn resize(&mut self, minCapacity: i64) {
         // TODO
     }
 }

@@ -1,5 +1,6 @@
 use crate::constants::CHANNELS;
 use crate::delay::Delay;
+use crate::random_in_range::random_in_range;
 
 // TODO
 fn random_bool() -> bool {
@@ -17,11 +18,11 @@ impl DiffusionStep {
     pub(crate) fn configure(&mut self, sampleRate: f64) {
         let delaySamplesRange = self.delayMsRange * 0.001 * sampleRate;
         for c in 0..CHANNELS {
-            let rangeLow = delaySamplesRange * c / CHANNELS;
-            let rangeHigh = delaySamplesRange * (c + 1) / CHANNELS;
-            self.delaySamples[c] = randomInRange(rangeLow, rangeHigh);
+            let rangeLow = delaySamplesRange * c as f64 / CHANNELS as f64;
+            let rangeHigh = delaySamplesRange * (c as f64 + 1.) / CHANNELS as f64;
+            self.delaySamples[c] = random_in_range(rangeLow, rangeHigh) as i64;
             self.delays[c].resize(self.delaySamples[c] + 1);
-            Delay::reset();
+            self.delays[c].reset();
             self.flipPolarity[c] = random_bool();
         }
     }
