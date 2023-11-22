@@ -19,7 +19,7 @@ impl MultiChannelMixedFeedback {
         let mut delays = vec![];
 
         // Adapt
-        for i in 0..CHANNELS {
+        for _i in 0..CHANNELS {
             delays.push(Delay::new(0));
         }
 

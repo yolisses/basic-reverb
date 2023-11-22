@@ -61,7 +61,7 @@ impl DiffusionStep {
 
         // Flip some polarities
         for c in 0..CHANNELS {
-            if (self.flipPolarity[c]) {
+            if self.flipPolarity[c] {
                 mixed[c] *= -1.;
             }
         }
