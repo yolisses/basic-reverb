@@ -16,7 +16,7 @@ impl DiffuserHalfLengths {
 
         for step in &mut steps {
             diffusion_ms *= 0.5;
-            step.delayMsRange = diffusion_ms;
+            step.delay_ms_range = diffusion_ms;
         }
 
         Self { steps }

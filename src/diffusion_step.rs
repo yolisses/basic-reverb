@@ -12,10 +12,10 @@ fn random_bool() -> bool {
 
 // TODO consider removing this derive
 pub(crate) struct DiffusionStep {
-    pub(crate) delayMsRange: f64,
-    delaySamples: [i64; CHANNELS],
+    pub(crate) delay_ms_range: f64,
+    delay_samples: [i64; CHANNELS],
     delays: Vec<Delay>,
-    flipPolarity: [bool; CHANNELS],
+    flip_polarity: [bool; CHANNELS],
 }
 
 impl DiffusionStep {
@@ -41,9 +41,9 @@ impl DiffusionStep {
 
         Self {
             delays,
-            delayMsRange: delay_ms_range,
-            delaySamples: delay_samples,
-            flipPolarity: flip_polarity,
+            delay_ms_range,
+            delay_samples,
+            flip_polarity,
         }
     }
 
@@ -52,16 +52,16 @@ impl DiffusionStep {
         let mut delayed = [0.; CHANNELS];
         for c in 0..CHANNELS {
             self.delays[c].write(input[c]);
-            delayed[c] = self.delays[c].read(self.delaySamples[c]);
+            delayed[c] = self.delays[c].read(self.delay_samples[c]);
         }
 
         // Mix with a Hadamard matrix
         let mut mixed = delayed;
-        Hadamard::inPlace(&mut mixed);
+        Hadamard::in_place(&mut mixed);
 
         // Flip some polarities
         for c in 0..CHANNELS {
-            if self.flipPolarity[c] {
+            if self.flip_polarity[c] {
                 mixed[c] *= -1.;
             }
         }

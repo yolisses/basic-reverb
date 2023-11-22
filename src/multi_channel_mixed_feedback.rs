@@ -47,7 +47,7 @@ impl MultiChannelMixedFeedback {
 
         // Mix using a Householder matrix
         let mut mixed = delayed;
-        Householder::inPlace(&mut mixed);
+        Householder::in_place(&mut mixed);
 
         for c in 0..CHANNELS {
             let sum = input[c] + mixed[c] * self.decay_gain;

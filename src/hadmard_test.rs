@@ -5,7 +5,7 @@ mod tests {
     #[test]
     fn it_works() {
         let mut data: [f64; 8] = [0., 0., 0., 0., 0., 0., 1., 0.];
-        Hadamard::inPlace(&mut data);
+        Hadamard::in_place(&mut data);
         assert_eq!(
             data,
             [
@@ -21,7 +21,7 @@ mod tests {
         );
 
         let mut data: [f64; 8] = [0., 0., 1., 0., 0., 0., 0., 0.];
-        Hadamard::inPlace(&mut data);
+        Hadamard::in_place(&mut data);
         assert_eq!(
             data,
             [

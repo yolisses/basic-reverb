@@ -24,7 +24,7 @@ impl Hadamard {
         }
     }
 
-    pub(crate) fn inPlace(data: &mut [f64]) {
+    pub(crate) fn in_place(data: &mut [f64]) {
         let size = data.len();
         Hadamard::recursive_unscaled(data);
 
