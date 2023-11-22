@@ -31,14 +31,14 @@ impl DiffusionStep {
 
     pub(crate) fn process(&mut self, input: Array) -> Array {
         // Delay
-        let delayed = [0.; CHANNELS];
+        let mut delayed = [0.; CHANNELS];
         for c in 0..CHANNELS {
             self.delays[c].write(input[c]);
             delayed[c] = self.delays[c].read(self.delaySamples[c]);
         }
 
         // Mix with a Hadamard matrix
-        let mixed = delayed;
+        let mut mixed = delayed;
         Hadamard::inPlace(&mut mixed);
 
         // Flip some polarities
@@ -49,5 +49,17 @@ impl DiffusionStep {
         }
 
         return mixed;
+    }
+}
+
+// new
+impl DiffusionStep {
+    pub(crate) fn new() -> Self {
+        Self {
+            delayMsRange: 50.,
+            delaySamples: [0; CHANNELS],
+            delays: [Delay::new(); CHANNELS],
+            flipPolarity: [false; CHANNELS],
+        }
     }
 }

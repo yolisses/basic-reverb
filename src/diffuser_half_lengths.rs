@@ -6,6 +6,6 @@ pub(crate) struct DiffuserHalfLengths {
 
 impl DiffuserHalfLengths {
     pub(crate) fn new(diffusionMs: f64) {
-        let steps=  [DiffusionStep::ne]
+        let steps = [DiffusionStep::new(); CHANNELS];
     }
 }
