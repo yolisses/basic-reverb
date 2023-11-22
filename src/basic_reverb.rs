@@ -13,7 +13,7 @@ pub(crate) struct BasicReverb {
 impl BasicReverb {
     pub(crate) fn new(roomSizeMs: f64, rt60: f64, dry: f64, wet: f64) -> Self {
         let diffuser = DiffuserHalfLengths::new(roomSizeMs);
-        let feedback = MultiChannelMixedFeedback::new();
+        let mut feedback = MultiChannelMixedFeedback::new();
         feedback.delayMs = roomSizeMs;
 
         // How long does our signal take to go around the feedback loop?
@@ -41,7 +41,7 @@ impl BasicReverb {
     pub(crate) fn process(&mut self, input: Array) -> Array {
         let diffuse = self.diffuser.process(input);
         let longLasting = self.feedback.process(diffuse);
-        let output = [0.; CHANNELS];
+        let mut output = [0.; CHANNELS];
         for c in 0..CHANNELS {
             output[c] = self.dry * input[c] + self.wet * longLasting[c];
         }

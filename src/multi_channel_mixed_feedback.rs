@@ -4,8 +4,8 @@ use crate::delay::Delay;
 use crate::householder::Householder;
 
 pub(crate) struct MultiChannelMixedFeedback {
-    delayMs: f64,
-    decayGain: f64,
+    pub(crate) delayMs: f64,
+    pub(crate) decayGain: f64,
     delaySamples: [i64; CHANNELS],
     delays: [Delay; CHANNELS],
 }
