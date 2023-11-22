@@ -1,29 +1,35 @@
-// TODO consider removing this derive
-#[derive(Clone, Copy)]
-pub(crate) struct Delay {}
+pub(crate) struct Delay {
+    buffer: Vec<f64>,
+}
 
+// TODO replace by circular buffer
 impl Delay {
     pub(crate) fn reset(&mut self) {
-        // TODO
+        for element in self.buffer.iter_mut() {
+            *element = 0.;
+        }
     }
 
     pub(crate) fn resize(&mut self, minCapacity: i64) {
-        // TODO
+        // TODO use the previous values instead of hard reset
+        self.buffer = vec![0.; minCapacity as usize];
     }
 
     pub(crate) fn write(&mut self, value: f64) {
-        // TODO
+        self.buffer.insert(0, value);
+        self.buffer.pop();
     }
 
     pub(crate) fn read(&mut self, delaySamples: i64) -> f64 {
-        // TODO
-        0.
+        self.buffer[delaySamples as usize]
     }
 }
 
 // new
 impl Delay {
-    pub(crate) fn new() -> Self {
-        Self {}
+    pub(crate) fn new(size: usize) -> Self {
+        Self {
+            buffer: vec![0.; size],
+        }
     }
 }

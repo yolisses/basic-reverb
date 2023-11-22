@@ -10,11 +10,10 @@ fn random_bool() -> bool {
 }
 
 // TODO consider removing this derive
-#[derive(Clone, Copy)]
 pub(crate) struct DiffusionStep {
     pub(crate) delayMsRange: f64,
     delaySamples: [i64; CHANNELS],
-    delays: [Delay; CHANNELS],
+    delays: Vec<Delay>,
     flipPolarity: [bool; CHANNELS],
 }
 
@@ -22,6 +21,9 @@ impl DiffusionStep {
     pub(crate) fn configure(&mut self, sampleRate: f64) {
         let delaySamplesRange = self.delayMsRange * 0.001 * sampleRate;
         for c in 0..CHANNELS {
+            // Adapt
+            self.delays.push(Delay::new(0));
+
             let rangeLow = delaySamplesRange * c as f64 / CHANNELS as f64;
             let rangeHigh = delaySamplesRange * (c as f64 + 1.) / CHANNELS as f64;
             self.delaySamples[c] = random_in_range(rangeLow, rangeHigh) as i64;
@@ -60,7 +62,7 @@ impl DiffusionStep {
         Self {
             delayMsRange: 50.,
             delaySamples: [0; CHANNELS],
-            delays: [Delay::new(); CHANNELS],
+            delays: vec![],
             flipPolarity: [false; CHANNELS],
         }
     }

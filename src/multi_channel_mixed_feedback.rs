@@ -7,11 +7,16 @@ pub(crate) struct MultiChannelMixedFeedback {
     pub(crate) delayMs: f64,
     pub(crate) decayGain: f64,
     delaySamples: [i64; CHANNELS],
-    delays: [Delay; CHANNELS],
+    delays: Vec<Delay>,
 }
 
 impl MultiChannelMixedFeedback {
     pub(crate) fn configure(&mut self, sampleRate: f64) {
+        // Adapt
+        for i in 0..CHANNELS {
+            self.delays.push(Delay::new(0));
+        }
+
         let delaySamplesBase = self.delayMs * 0.001 * sampleRate;
         for c in 0..CHANNELS {
             let r = c as f64 * 1.0 / CHANNELS as f64;
@@ -47,7 +52,7 @@ impl MultiChannelMixedFeedback {
             delayMs: 150.,
             decayGain: 0.85,
             delaySamples: [0; CHANNELS],
-            delays: [Delay::new(); CHANNELS],
+            delays: vec![],
         }
     }
 }

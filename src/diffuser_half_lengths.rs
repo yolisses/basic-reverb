@@ -1,15 +1,20 @@
 use crate::{array::Array, constants::CHANNELS, diffusion_step::DiffusionStep};
 
 pub(crate) struct DiffuserHalfLengths {
-    steps: [DiffusionStep; CHANNELS],
+    steps: Vec<DiffusionStep>,
 }
 
 // new
 impl DiffuserHalfLengths {
     pub(crate) fn new(mut diffusionMs: f64) -> Self {
-        let mut steps = [DiffusionStep::new(); CHANNELS];
+        // Adapt
+        let mut steps: Vec<DiffusionStep> = vec![];
 
-        for mut step in steps {
+        for _ in 0..CHANNELS {
+            steps.push(DiffusionStep::new());
+        }
+
+        for step in &mut steps {
             diffusionMs *= 0.5;
             step.delayMsRange = diffusionMs;
         }
@@ -18,13 +23,13 @@ impl DiffuserHalfLengths {
     }
 
     pub(crate) fn configure(&mut self, sampleRate: f64) {
-        for mut step in self.steps {
+        for step in &mut self.steps {
             step.configure(sampleRate);
         }
     }
 
     pub(crate) fn process(&mut self, mut samples: Array) -> Array {
-        for mut step in self.steps {
+        for step in &mut self.steps {
             samples = step.process(samples);
         }
         return samples;
