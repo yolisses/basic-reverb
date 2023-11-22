@@ -2,8 +2,8 @@ use crate::array::Array;
 use crate::constants::CHANNELS;
 use crate::delay::Delay;
 use crate::hadmard::Hadamard;
-use crate::random_in_range::random_in_range;
 use crate::sample_rate::SAMPLE_RATE;
+use rand::Rng;
 
 // TODO
 fn random_bool() -> bool {
@@ -31,9 +31,12 @@ impl DiffusionStep {
             // Adapt
             delays.push(Delay::new(0));
 
-            let range_low = delay_samples_range * i as f64 / CHANNELS as f64;
-            let range_high = delay_samples_range * (i as f64 + 1.) / CHANNELS as f64;
-            delay_samples[i] = random_in_range(range_low, range_high) as i64;
+            let range_low: i64 = (delay_samples_range * i as f64 / CHANNELS as f64) as i64;
+            let range_high: i64 = (delay_samples_range * (i as f64 + 1.) / CHANNELS as f64) as i64;
+
+            let mut random = rand::thread_rng();
+
+            delay_samples[i] = random.gen_range(range_low..range_high);
             delays[i].resize(delay_samples[i] + 1);
             delays[i].reset();
             flip_polarity[i] = random_bool();

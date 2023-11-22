@@ -1,7 +1,5 @@
-use constants::CHANNELS;
-
 use crate::basic_reverb::BasicReverb;
-
+use constants::CHANNELS;
 mod array;
 mod basic_reverb;
 mod constants;
@@ -13,13 +11,12 @@ mod hadmard_test;
 mod householder;
 mod householder_test;
 mod multi_channel_mixed_feedback;
-mod random_in_range;
 mod sample_rate;
 
 pub fn main() {
     let input = [
         0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
-        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0.4, 0.5, 0.2, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
     ];
 
     let room_size_ms: f64 = 500.;
