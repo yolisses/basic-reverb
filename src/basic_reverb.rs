@@ -33,11 +33,6 @@ impl BasicReverb {
         }
     }
 
-    pub(crate) fn configure(&mut self) {
-        self.feedback.configure();
-        self.diffuser.configure();
-    }
-
     pub(crate) fn process(&mut self, input: Array) -> Array {
         let diffuse = self.diffuser.process(input);
         let longLasting = self.feedback.process(diffuse);

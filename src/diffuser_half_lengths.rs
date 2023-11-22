@@ -22,12 +22,6 @@ impl DiffuserHalfLengths {
         Self { steps }
     }
 
-    pub(crate) fn configure(&mut self) {
-        for step in &mut self.steps {
-            step.configure();
-        }
-    }
-
     pub(crate) fn process(&mut self, mut samples: Array) -> Array {
         for step in &mut self.steps {
             samples = step.process(samples);

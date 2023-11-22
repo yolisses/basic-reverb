@@ -19,18 +19,31 @@ pub(crate) struct DiffusionStep {
 }
 
 impl DiffusionStep {
-    pub(crate) fn configure(&mut self) {
-        let delaySamplesRange = self.delayMsRange * 0.001 * SAMPLE_RATE;
-        for c in 0..CHANNELS {
-            // Adapt
-            self.delays.push(Delay::new(0));
+    pub(crate) fn new() -> Self {
+        let delayMsRange = 50.;
+        let mut delays = vec![];
+        let mut flipPolarity = [false; CHANNELS];
+        let mut delaySamples = [0; CHANNELS];
 
-            let rangeLow = delaySamplesRange * c as f64 / CHANNELS as f64;
-            let rangeHigh = delaySamplesRange * (c as f64 + 1.) / CHANNELS as f64;
-            self.delaySamples[c] = random_in_range(rangeLow, rangeHigh) as i64;
-            self.delays[c].resize(self.delaySamples[c] + 1);
-            self.delays[c].reset();
-            self.flipPolarity[c] = random_bool();
+        let delaySamplesRange = delayMsRange * 0.001 * SAMPLE_RATE;
+
+        for i in 0..CHANNELS {
+            // Adapt
+            delays.push(Delay::new(0));
+
+            let rangeLow = delaySamplesRange * i as f64 / CHANNELS as f64;
+            let rangeHigh = delaySamplesRange * (i as f64 + 1.) / CHANNELS as f64;
+            delaySamples[i] = random_in_range(rangeLow, rangeHigh) as i64;
+            delays[i].resize(delaySamples[i] + 1);
+            delays[i].reset();
+            flipPolarity[i] = random_bool();
+        }
+
+        Self {
+            delays,
+            delayMsRange,
+            delaySamples,
+            flipPolarity,
         }
     }
 
@@ -54,17 +67,5 @@ impl DiffusionStep {
         }
 
         return mixed;
-    }
-}
-
-// new
-impl DiffusionStep {
-    pub(crate) fn new() -> Self {
-        Self {
-            delayMsRange: 50.,
-            delaySamples: [0; CHANNELS],
-            delays: vec![],
-            flipPolarity: [false; CHANNELS],
-        }
     }
 }
