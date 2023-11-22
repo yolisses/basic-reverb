@@ -1,4 +1,4 @@
-use crate::{constants::CHANNELS, diffusion_step::DiffusionStep};
+use crate::{array::Array, constants::CHANNELS, diffusion_step::DiffusionStep};
 
 pub(crate) struct DiffuserHalfLengths {
     steps: [DiffusionStep; CHANNELS],
@@ -15,5 +15,18 @@ impl DiffuserHalfLengths {
         }
 
         Self { steps }
+    }
+
+    pub(crate) fn configure(&mut self, sampleRate: f64) {
+        for mut step in self.steps {
+            step.configure(sampleRate);
+        }
+    }
+
+    pub(crate) fn process(&mut self, mut samples: Array) -> Array {
+        for mut step in self.steps {
+            samples = step.process(samples);
+        }
+        return samples;
     }
 }
