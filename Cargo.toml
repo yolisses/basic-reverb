@@ -7,6 +7,7 @@ homepage = "https://github.com/yolisses/basic-reverb"
 repository = "https://github.com/yolisses/basic-reverb"
 keywords = ["reverb", "multichannel", "audio"]
 readme = "README.md"
+license = "MIT"
 
 [dependencies]
 rand = "0.8.5"
