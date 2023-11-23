@@ -15,14 +15,11 @@ impl MultiChannelMixedFeedback {
         let decay_gain = 0.85;
         let mut delays = vec![];
 
-        // Adapt
-        for _i in 0..CHANNELS {}
-
         let delay_samples_base = delay_ms * 0.001 * SAMPLE_RATE;
         for c in 0..CHANNELS {
             let r = c as f64 * 1.0 / CHANNELS as f64;
-            let delay_samples = (f64::powf(2., r) * delay_samples_base) as usize;
-            delays.push(Delay::new(delay_samples + 1));
+            let delay_size = (f64::powf(2., r) * delay_samples_base) as usize;
+            delays.push(Delay::new(delay_size + 1));
         }
 
         Self {

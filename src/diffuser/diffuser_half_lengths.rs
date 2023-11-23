@@ -1,4 +1,6 @@
-use crate::{array::Array, constants::CHANNELS, diffusion_step::DiffusionStep};
+use super::diffusion_step::DiffusionStep;
+use crate::array::Array;
+use crate::constants::CHANNELS;
 
 pub(crate) struct DiffuserHalfLengths {
     steps: Vec<DiffusionStep>,

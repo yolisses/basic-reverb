@@ -24,9 +24,8 @@ impl DiffusionStep {
 
             let mut random = rand::thread_rng();
 
-            let delay_samples = random.gen_range(range_low..range_high);
-            // TODO check if this +1 is a must
-            delays.push(Delay::new((delay_samples + 1) as usize));
+            let delay_size = random.gen_range(range_low..range_high);
+            delays.push(Delay::new((delay_size + 1) as usize));
 
             let mut random = rand::thread_rng();
             flip_polarity[i] = random.gen_bool(0.5);
