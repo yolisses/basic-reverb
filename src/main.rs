@@ -7,12 +7,8 @@ mod constants;
 mod delay;
 mod diffuser_half_lengths;
 mod diffusion_step;
-mod hadmard;
-mod hadmard_test;
-mod householder;
-mod householder_test;
+mod mix_matrix;
 mod multi_channel_mixed_feedback;
-mod sample_rate;
 
 fn main() -> Result<(), hound::Error> {
     // Input WAV file path

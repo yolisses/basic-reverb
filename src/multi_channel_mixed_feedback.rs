@@ -1,8 +1,7 @@
 use crate::array::Array;
-use crate::constants::CHANNELS;
+use crate::constants::{CHANNELS, SAMPLE_RATE};
 use crate::delay::Delay;
-use crate::householder::Householder;
-use crate::sample_rate::SAMPLE_RATE;
+use crate::mix_matrix::householder::Householder;
 
 pub(crate) struct MultiChannelMixedFeedback {
     pub(crate) delay_ms: f64,

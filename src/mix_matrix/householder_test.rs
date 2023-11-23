@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::householder::Householder;
+    use crate::mix_matrix::householder::Householder;
 
     #[test]
     fn it_works() {

@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::hadmard::Hadamard;
+    use crate::mix_matrix::hadmard::Hadamard;
 
     #[test]
     fn it_works() {

@@ -4,10 +4,10 @@ use crate::diffuser_half_lengths::DiffuserHalfLengths;
 use crate::multi_channel_mixed_feedback::MultiChannelMixedFeedback;
 
 pub(crate) struct BasicReverb {
-    feedback: MultiChannelMixedFeedback,
-    diffuser: DiffuserHalfLengths,
     dry: f64,
     wet: f64,
+    diffuser: DiffuserHalfLengths,
+    feedback: MultiChannelMixedFeedback,
 }
 
 impl BasicReverb {
