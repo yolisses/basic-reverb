@@ -1,7 +1,11 @@
 [package]
-name = "multichannel_reverb"
+name = "basic-reverb"
 version = "0.1.0"
 edition = "2021"
+description = "A Rust implementation of the Geraint Luff's reverb presented at \"Let's Write A Reverb\""
+homepage = "https://github.com/yolisses/basic-reverb"
+repository = "https://github.com/yolisses/basic-reverb"
+keywords = ["reverb", "multichannel", "audio"]
 
 [dependencies]
 rand = "0.8.5"
