@@ -1,6 +1,6 @@
 # Basic Reverb
 
-A Rust implementation of the reverb presented at [Let's Write A Reverb](https://youtu.be/6ZK2Goiyotk?si=7DKV5o-jFFr3YSP8). It was made basically copy and pasting from the [reverb example code](https://github.com/Signalsmith-Audio/reverb-example-code).  
+A Rust implementation of the reverb presented at [Let's Write A Reverb](https://youtu.be/6ZK2Goiyotk?si=7DKV5o-jFFr3YSP8). It was made basically translating the [reverb example code](https://github.com/Signalsmith-Audio/reverb-example-code).  
 It has differences tough:
 
 - It has a fixed number of channels
