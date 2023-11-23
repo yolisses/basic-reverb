@@ -4,7 +4,6 @@ use crate::delay::Delay;
 use crate::mix_matrix::householder::Householder;
 
 pub(crate) struct MultiChannelMixedFeedback {
-    pub(crate) delay_ms: f64,
     pub(crate) decay_gain: f64,
     delays: Vec<Delay>,
 }
@@ -20,11 +19,7 @@ impl MultiChannelMixedFeedback {
             delays.push(Delay::new(delay_size + 1));
         }
 
-        Self {
-            delays,
-            delay_ms,
-            decay_gain,
-        }
+        Self { delays, decay_gain }
     }
 
     pub(crate) fn process(&mut self, input: Array) -> Array {
