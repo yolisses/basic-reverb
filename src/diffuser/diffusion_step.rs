@@ -1,7 +1,7 @@
 use crate::array::Array;
 use crate::constants::{CHANNELS, SAMPLE_RATE};
 use crate::delay::Delay;
-use crate::mix_matrix::hadmard::Hadamard;
+use crate::mix_matrix::hadamard::Hadamard;
 use rand::Rng;
 
 pub(crate) struct DiffusionStep {
