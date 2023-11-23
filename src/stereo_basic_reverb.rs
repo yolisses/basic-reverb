@@ -22,8 +22,8 @@ impl StereoBasicReverb {
 
         let output = self.basic_reverb.process(input);
 
+        // Mix down into stereo
         let mut sum = (0., 0.);
-        // Duplicate input channels as many times as needed
         for i in 0..CHANNELS / 2 {
             sum.0 = output[2 * i];
             sum.1 = output[2 * i + 1];
