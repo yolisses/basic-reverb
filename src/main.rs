@@ -43,7 +43,9 @@ fn main() -> Result<(), hound::Error> {
             sum += output_channels[c];
         }
 
-        let processed_sample = (i16::MAX as f64 * sum) as i16;
+        let mean = sum / CHANNELS as f64;
+
+        let processed_sample = (i16::MAX as f64 * mean) as i16;
 
         // Write the processed sample to the output WAV file
         writer.write_sample(processed_sample)?;
