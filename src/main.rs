@@ -31,8 +31,6 @@ fn main() -> Result<(), hound::Error> {
     let wet: f64 = 1.;
     let mut basic_reverb = BasicReverb::new(room_size_ms, rt60, dry, wet);
 
-    // run_debug(&mut basic_reverb);
-
     // Iterate over samples and multiply each sample by 10
     for sample in reader.samples::<i16>() {
         let sample = sample?;

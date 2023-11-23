@@ -13,11 +13,9 @@ pub(crate) struct DiffusionStep {
 impl DiffusionStep {
     pub(crate) fn new() -> Self {
         let delay_ms_range = 50.;
+        let delay_samples_range = delay_ms_range * 0.001 * SAMPLE_RATE;
         let mut delays = vec![];
         let mut flip_polarity = [false; CHANNELS];
-
-        let delay_samples_range = delay_ms_range * 0.001 * SAMPLE_RATE;
-
         for i in 0..CHANNELS {
             let range_low: i64 = (delay_samples_range * i as f64 / CHANNELS as f64) as i64;
             let range_high: i64 = (delay_samples_range * (i as f64 + 1.) / CHANNELS as f64) as i64;

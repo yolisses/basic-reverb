@@ -13,8 +13,6 @@ pub(crate) struct BasicReverb {
 impl BasicReverb {
     pub(crate) fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64) -> Self {
         let diffuser = DiffuserHalfLengths::new(room_size_ms);
-        let mut feedback = MultiChannelMixedFeedback::new();
-        feedback.delay_ms = room_size_ms;
 
         // How long does our signal take to go around the feedback loop?
         let typical_loop_ms = room_size_ms * 1.5;
@@ -23,13 +21,15 @@ impl BasicReverb {
         // This tells us how many dB to reduce per loop
         let db_per_cycle = -60. / loops_per_rt_60;
 
-        feedback.decay_gain = f64::powf(10., db_per_cycle * 0.05);
+        let delay_ms = room_size_ms;
+        let decay_gain = f64::powf(10., db_per_cycle * 0.05);
+        let feedback = MultiChannelMixedFeedback::new(delay_ms, decay_gain);
 
         Self {
-            feedback,
-            diffuser,
             dry,
             wet,
+            feedback,
+            diffuser,
         }
     }
 
