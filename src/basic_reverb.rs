@@ -1,3 +1,7 @@
+use std::array;
+
+use array_init::array_init;
+
 use crate::diffuser::diffuser_half_lengths::DiffuserHalfLengths;
 use crate::multi_channel_mixed_feedback::MultiChannelMixedFeedback;
 
@@ -31,16 +35,15 @@ impl<const CHANNELS: usize, const SAMPLE_RATE: usize> BasicReverb<CHANNELS, SAMP
         }
     }
 
-    pub fn process(&mut self, input: Vec<f64>) -> Vec<f64> {
-        let diffuse = self.diffuser.process(input.clone());
+    pub fn process(&mut self, input: [f64; CHANNELS]) -> [f64; CHANNELS] {
+        let diffuse = self.diffuser.process(input);
         let long_lasting = self.feedback.process(diffuse);
 
-        let mut output = Vec::with_capacity(CHANNELS);
-        for i in 0..CHANNELS {
+        let output = array_init(|i| {
             let dry = self.dry * input[i];
             let wet = self.wet * long_lasting[i];
-            output.push(dry + wet);
-        }
+            dry + wet
+        });
 
         output
     }

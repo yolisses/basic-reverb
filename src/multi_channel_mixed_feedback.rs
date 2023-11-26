@@ -22,12 +22,8 @@ impl<const CHANNELS: usize, const SAMPLE_RATE: usize>
         Self { delays, decay_gain }
     }
 
-    pub(crate) fn process(&mut self, input: Vec<f64>) -> Vec<f64> {
-        let mut delayed = Vec::with_capacity(CHANNELS);
-
-        for i in 0..CHANNELS {
-            delayed.push(self.delays[i].read());
-        }
+    pub(crate) fn process(&mut self, input: [f64; CHANNELS]) -> [f64; CHANNELS] {
+        let delayed = array_init(|i| self.delays[i].read());
 
         // Mix using a Householder matrix
         let mut mixed = delayed.clone();

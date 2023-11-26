@@ -18,7 +18,8 @@ impl<const CHANNELS: usize, const SAMPLE_RATE: usize> DiffuserHalfLengths<CHANNE
         Self { steps }
     }
 
-    pub(crate) fn process(&mut self, mut samples: Vec<f64>) -> Vec<f64> {
+    pub(crate) fn process(&mut self, samples: [f64; CHANNELS]) -> [f64; CHANNELS] {
+        let mut samples = samples;
         for step in &mut self.steps {
             samples = step.process(samples);
         }

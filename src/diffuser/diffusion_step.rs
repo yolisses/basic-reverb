@@ -34,17 +34,12 @@ impl<const CHANNELS: usize, const SAMPLE_RATE: usize> DiffusionStep<CHANNELS, SA
         }
     }
 
-    pub(crate) fn process(&mut self, input: Vec<f64>) -> Vec<f64> {
+    pub(crate) fn process(&mut self, input: [f64; CHANNELS]) -> [f64; CHANNELS] {
         // Delay
-        let delayed: Vec<f64> = self
-            .delays
-            .iter_mut()
-            .enumerate()
-            .map(|(index, delay)| {
-                delay.write(input[index]);
-                delay.read()
-            })
-            .collect();
+        let delayed: [f64; CHANNELS] = array_init(|i| {
+            self.delays[i].write(input[i]);
+            self.delays[i].read()
+        });
 
         // Mix with a Hadamard matrix
         let mut mixed = delayed;

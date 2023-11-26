@@ -12,7 +12,7 @@ impl<const CHANNELS: usize, const SAMPLE_RATE: usize> StereoBasicReverb<CHANNELS
     }
 
     pub fn process_sample(&mut self, sample: (f64, f64)) -> (f64, f64) {
-        let mut input = vec![0.; CHANNELS];
+        let mut input = [0.; CHANNELS];
 
         // Duplicate input as many times as needed
         for i in 0..CHANNELS / 2 {

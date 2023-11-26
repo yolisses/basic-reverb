@@ -12,7 +12,7 @@ impl<const CHANNELS: usize, const SAMPLE_RATE: usize> MonoBasicReverb<CHANNELS, 
     }
 
     pub fn process_sample(&mut self, sample: f64) -> f64 {
-        let resized_input = vec![sample; CHANNELS];
+        let resized_input = [sample; CHANNELS];
         let output = self.basic_reverb.process(resized_input);
         mean(&output)
     }
