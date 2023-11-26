@@ -52,11 +52,11 @@ impl DiffusionStep {
         Hadamard::in_place(&mut mixed);
 
         // Flip some polarities
-        self.flip_polarity.iter().enumerate().map(|(index, flip)| {
+        for (index, flip) in self.flip_polarity.iter().enumerate() {
             if *flip {
                 mixed[index] *= -1.;
             }
-        });
+        }
 
         mixed
     }
