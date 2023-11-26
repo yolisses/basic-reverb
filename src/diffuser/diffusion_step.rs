@@ -3,13 +3,13 @@ use crate::mix_matrix::hadamard::Hadamard;
 use array_init::array_init;
 use rand::Rng;
 
-pub(crate) struct DiffusionStep<const CHANNELS: usize, const SAMPLE_RATE: usize> {
+pub(crate) struct DiffusionStep<const CHANNELS: usize, const SAMPLE_RATE: u32> {
     pub(crate) delay_ms_range: f64,
     delays: [Delay; CHANNELS],
     flip_polarity: [bool; CHANNELS],
 }
 
-impl<const CHANNELS: usize, const SAMPLE_RATE: usize> DiffusionStep<CHANNELS, SAMPLE_RATE> {
+impl<const CHANNELS: usize, const SAMPLE_RATE: u32> DiffusionStep<CHANNELS, SAMPLE_RATE> {
     pub(crate) fn new() -> Self {
         let delay_ms_range = 50.;
         let delay_samples_range = delay_ms_range * 0.001 * SAMPLE_RATE as f64;

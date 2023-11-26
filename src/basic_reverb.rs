@@ -2,14 +2,14 @@ use crate::diffuser::diffuser_half_lengths::DiffuserHalfLengths;
 use crate::multi_channel_mixed_feedback::MultiChannelMixedFeedback;
 use array_init::array_init;
 
-pub struct BasicReverb<const CHANNELS: usize, const SAMPLE_RATE: usize> {
+pub struct BasicReverb<const CHANNELS: usize, const SAMPLE_RATE: u32> {
     dry: f64,
     wet: f64,
     diffuser: DiffuserHalfLengths<CHANNELS, SAMPLE_RATE>,
     feedback: MultiChannelMixedFeedback<CHANNELS, SAMPLE_RATE>,
 }
 
-impl<const CHANNELS: usize, const SAMPLE_RATE: usize> BasicReverb<CHANNELS, SAMPLE_RATE> {
+impl<const CHANNELS: usize, const SAMPLE_RATE: u32> BasicReverb<CHANNELS, SAMPLE_RATE> {
     pub fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64) -> Self {
         let diffuser = DiffuserHalfLengths::new(room_size_ms);
 

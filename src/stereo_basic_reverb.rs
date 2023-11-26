@@ -1,10 +1,10 @@
 use crate::basic_reverb::BasicReverb;
 
-pub struct StereoBasicReverb<const CHANNELS: usize, const SAMPLE_RATE: usize> {
+pub struct StereoBasicReverb<const CHANNELS: usize, const SAMPLE_RATE: u32> {
     basic_reverb: BasicReverb<CHANNELS, SAMPLE_RATE>,
 }
 
-impl<const CHANNELS: usize, const SAMPLE_RATE: usize> StereoBasicReverb<CHANNELS, SAMPLE_RATE> {
+impl<const CHANNELS: usize, const SAMPLE_RATE: u32> StereoBasicReverb<CHANNELS, SAMPLE_RATE> {
     pub fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64) -> Self {
         Self {
             basic_reverb: BasicReverb::new(room_size_ms, rt60, dry, wet),

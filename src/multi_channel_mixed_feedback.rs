@@ -2,12 +2,12 @@ use crate::delay::Delay;
 use crate::mix_matrix::householder::Householder;
 use array_init::array_init;
 
-pub(crate) struct MultiChannelMixedFeedback<const CHANNELS: usize, const SAMPLE_RATE: usize> {
+pub(crate) struct MultiChannelMixedFeedback<const CHANNELS: usize, const SAMPLE_RATE: u32> {
     pub(crate) decay_gain: f64,
     delays: [Delay; CHANNELS],
 }
 
-impl<const CHANNELS: usize, const SAMPLE_RATE: usize>
+impl<const CHANNELS: usize, const SAMPLE_RATE: u32>
     MultiChannelMixedFeedback<CHANNELS, SAMPLE_RATE>
 {
     pub(crate) fn new(delay_ms: f64, decay_gain: f64) -> Self {

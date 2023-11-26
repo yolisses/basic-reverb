@@ -1,11 +1,11 @@
 use super::diffusion_step::DiffusionStep;
 use array_init::array_init;
 
-pub(crate) struct DiffuserHalfLengths<const CHANNELS: usize, const SAMPLE_RATE: usize> {
+pub(crate) struct DiffuserHalfLengths<const CHANNELS: usize, const SAMPLE_RATE: u32> {
     steps: [DiffusionStep<CHANNELS, SAMPLE_RATE>; CHANNELS],
 }
 
-impl<const CHANNELS: usize, const SAMPLE_RATE: usize> DiffuserHalfLengths<CHANNELS, SAMPLE_RATE> {
+impl<const CHANNELS: usize, const SAMPLE_RATE: u32> DiffuserHalfLengths<CHANNELS, SAMPLE_RATE> {
     pub(crate) fn new(diffusion_ms: f64) -> Self {
         let mut diffusion_ms = diffusion_ms;
         let steps = array_init(|_| {
