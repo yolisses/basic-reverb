@@ -11,6 +11,8 @@ impl MultiChannelMixedFeedback {
         let mut delays = vec![];
         let delay_samples_base: f64 = delay_ms * 0.001 * sample_rate as f64;
 
+        print!("channels {}", channels);
+
         for i in 0..channels {
             let r = i as f64 * 1.0 / channels as f64;
             let delay_size = (f64::powf(2., r) * delay_samples_base) as usize;
@@ -23,8 +25,8 @@ impl MultiChannelMixedFeedback {
     pub(crate) fn process(&mut self, input: Vec<f64>) -> Vec<f64> {
         let channels = self.delays.len();
         let mut delayed = Vec::with_capacity(channels);
-        for c in 0..channels {
-            delayed[c] = self.delays[c].read();
+        for i in 0..channels {
+            delayed[i] = self.delays[i].read();
         }
 
         // Mix using a Householder matrix
