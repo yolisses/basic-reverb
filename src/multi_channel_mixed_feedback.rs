@@ -4,7 +4,6 @@ use crate::mix_matrix::householder::Householder;
 pub(crate) struct MultiChannelMixedFeedback {
     pub(crate) decay_gain: f64,
     delays: Vec<Delay>,
-    channels: usize,
 }
 
 impl MultiChannelMixedFeedback {
@@ -18,15 +17,11 @@ impl MultiChannelMixedFeedback {
             delays.push(Delay::new(delay_size + 1));
         }
 
-        Self {
-            delays,
-            channels,
-            decay_gain,
-        }
+        Self { delays, decay_gain }
     }
 
     pub(crate) fn process(&mut self, input: Vec<f64>) -> Vec<f64> {
-        let channels = self.channels;
+        let channels = self.delays.len();
         let mut delayed = Vec::with_capacity(channels);
         for c in 0..channels {
             delayed[c] = self.delays[c].read();
