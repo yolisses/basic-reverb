@@ -41,6 +41,6 @@ impl MultiChannelMixedFeedback {
             self.delays[c].write(sum);
         }
 
-        return delayed;
+        delayed
     }
 }

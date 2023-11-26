@@ -59,6 +59,6 @@ impl DiffusionStep {
             }
         });
 
-        return mixed;
+        mixed
     }
 }
