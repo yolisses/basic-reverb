@@ -14,7 +14,6 @@ impl DiffusionStep {
         let delay_samples_range = delay_ms_range * 0.001 * sample_rate as f64;
 
         let mut delays = Vec::with_capacity(channels);
-        let mut flip_polarity = Vec::with_capacity(channels);
 
         for i in 0..channels {
             let range_low: i64 = (delay_samples_range * i as f64 / channels as f64) as i64;
@@ -24,10 +23,10 @@ impl DiffusionStep {
 
             let delay_size = random.gen_range(range_low..range_high);
             delays.push(Delay::new((delay_size + 1) as usize));
-
-            let mut random = rand::thread_rng();
-            flip_polarity[i] = random.gen_bool(0.5);
         }
+
+        let mut random = rand::thread_rng();
+        let flip_polarity = (0..channels).map(|_| random.gen_bool(0.5)).collect();
 
         Self {
             delays,
