@@ -1,9 +1,6 @@
-use std::array;
-
-use array_init::array_init;
-
 use crate::diffuser::diffuser_half_lengths::DiffuserHalfLengths;
 use crate::multi_channel_mixed_feedback::MultiChannelMixedFeedback;
+use array_init::array_init;
 
 pub struct BasicReverb<const CHANNELS: usize, const SAMPLE_RATE: usize> {
     dry: f64,
