@@ -10,4 +10,5 @@ readme = "README.md"
 license = "MIT"
 
 [dependencies]
+array-init = "2.1.0"
 rand = "0.8.5"

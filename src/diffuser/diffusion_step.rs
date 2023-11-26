@@ -1,37 +1,36 @@
 use crate::delay::Delay;
 use crate::mix_matrix::hadamard::Hadamard;
+use array_init::array_init;
 use rand::Rng;
 
-pub(crate) struct DiffusionStep {
+pub(crate) struct DiffusionStep<const CHANNELS: usize, const SAMPLE_RATE: usize> {
     pub(crate) delay_ms_range: f64,
-    delays: Vec<Delay>,
+    delays: [Delay; CHANNELS],
     flip_polarity: Vec<bool>,
 }
 
-impl DiffusionStep {
-    pub(crate) fn new(channels: usize, sample_rate: u32) -> Self {
+impl<const CHANNELS: usize, const SAMPLE_RATE: usize> DiffusionStep<CHANNELS, SAMPLE_RATE> {
+    pub(crate) fn new() -> Self {
         let delay_ms_range = 50.;
-        let delay_samples_range = delay_ms_range * 0.001 * sample_rate as f64;
+        let delay_samples_range = delay_ms_range * 0.001 * SAMPLE_RATE as f64;
 
-        let mut delays = vec![];
-
-        for i in 0..channels {
-            let range_low = (delay_samples_range * i as f64 / channels as f64) as i64;
-            let range_high = (delay_samples_range * (i as f64 + 1.) / channels as f64) as i64;
+        let delays = array_init(|i| {
+            let range_low = (delay_samples_range * i as f64 / CHANNELS as f64) as i64;
+            let range_high = (delay_samples_range * (i as f64 + 1.) / CHANNELS as f64) as i64;
 
             let mut random = rand::thread_rng();
 
             let delay_size = random.gen_range(range_low..range_high);
-            delays.push(Delay::new((delay_size + 1) as usize));
-        }
+            Delay::new((delay_size + 1) as usize)
+        });
 
         let mut random = rand::thread_rng();
-        let flip_polarity = (0..channels).map(|_| random.gen_bool(0.5)).collect();
+        let flip_polarity = (0..CHANNELS).map(|_| random.gen_bool(0.5)).collect();
 
         Self {
             delays,
-            delay_ms_range,
             flip_polarity,
+            delay_ms_range,
         }
     }
 
