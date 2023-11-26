@@ -16,8 +16,8 @@ impl DiffusionStep {
         let mut delays = vec![];
 
         for i in 0..channels {
-            let range_low: i64 = (delay_samples_range * i as f64 / channels as f64) as i64;
-            let range_high: i64 = (delay_samples_range * (i as f64 + 1.) / channels as f64) as i64;
+            let range_low = (delay_samples_range * i as f64 / channels as f64) as i64;
+            let range_high = (delay_samples_range * (i as f64 + 1.) / channels as f64) as i64;
 
             let mut random = rand::thread_rng();
 
