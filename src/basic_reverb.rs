@@ -3,7 +3,7 @@ use crate::constants::CHANNELS;
 use crate::diffuser::diffuser_half_lengths::DiffuserHalfLengths;
 use crate::multi_channel_mixed_feedback::MultiChannelMixedFeedback;
 
-pub(crate) struct BasicReverb {
+pub struct BasicReverb {
     dry: f64,
     wet: f64,
     diffuser: DiffuserHalfLengths,
@@ -11,7 +11,7 @@ pub(crate) struct BasicReverb {
 }
 
 impl BasicReverb {
-    pub(crate) fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64) -> Self {
+    pub fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64) -> Self {
         let diffuser = DiffuserHalfLengths::new(room_size_ms);
 
         // How long does our signal take to go around the feedback loop?
@@ -33,7 +33,7 @@ impl BasicReverb {
         }
     }
 
-    pub(crate) fn process(&mut self, input: Array) -> Array {
+    pub fn process(&mut self, input: Array) -> Array {
         let diffuse = self.diffuser.process(input);
         let long_lasting = self.feedback.process(diffuse);
         let mut output = [0.; CHANNELS];

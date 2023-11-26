@@ -1,17 +1,17 @@
 use crate::{basic_reverb::BasicReverb, constants::CHANNELS};
 
-struct StereoBasicReverb {
+pub struct StereoBasicReverb {
     basic_reverb: BasicReverb,
 }
 
 impl StereoBasicReverb {
-    pub(crate) fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64) -> Self {
+    pub fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64) -> Self {
         Self {
             basic_reverb: BasicReverb::new(room_size_ms, rt60, dry, wet),
         }
     }
 
-    pub(crate) fn process_sample(&mut self, sample: (f64, f64)) -> (f64, f64) {
+    pub fn process_sample(&mut self, sample: (f64, f64)) -> (f64, f64) {
         let mut input = [0.; CHANNELS];
 
         // Duplicate input channels as many times as needed
