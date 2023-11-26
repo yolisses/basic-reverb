@@ -1,5 +1,3 @@
-use crate::array::Array;
-use crate::constants::CHANNELS;
 use crate::delay::Delay;
 use crate::mix_matrix::hadamard::Hadamard;
 use rand::Rng;
@@ -7,18 +5,20 @@ use rand::Rng;
 pub(crate) struct DiffusionStep {
     pub(crate) delay_ms_range: f64,
     delays: Vec<Delay>,
-    flip_polarity: [bool; CHANNELS],
+    flip_polarity: Vec<bool>,
 }
 
 impl DiffusionStep {
-    pub(crate) fn new(sample_rate: u32) -> Self {
+    pub(crate) fn new(channels: usize, sample_rate: u32) -> Self {
         let delay_ms_range = 50.;
         let delay_samples_range = delay_ms_range * 0.001 * sample_rate as f64;
-        let mut delays = vec![];
-        let mut flip_polarity = [false; CHANNELS];
-        for i in 0..CHANNELS {
-            let range_low: i64 = (delay_samples_range * i as f64 / CHANNELS as f64) as i64;
-            let range_high: i64 = (delay_samples_range * (i as f64 + 1.) / CHANNELS as f64) as i64;
+
+        let mut delays = Vec::with_capacity(channels);
+        let mut flip_polarity = Vec::with_capacity(channels);
+
+        for i in 0..channels {
+            let range_low: i64 = (delay_samples_range * i as f64 / channels as f64) as i64;
+            let range_high: i64 = (delay_samples_range * (i as f64 + 1.) / channels as f64) as i64;
 
             let mut random = rand::thread_rng();
 
@@ -36,24 +36,28 @@ impl DiffusionStep {
         }
     }
 
-    pub(crate) fn process(&mut self, input: Array) -> Array {
+    pub(crate) fn process(&mut self, input: Vec<f64>) -> Vec<f64> {
         // Delay
-        let mut delayed = [0.; CHANNELS];
-        for c in 0..CHANNELS {
-            self.delays[c].write(input[c]);
-            delayed[c] = self.delays[c].read();
-        }
+        let delayed: Vec<f64> = self
+            .delays
+            .iter_mut()
+            .enumerate()
+            .map(|(index, delay)| {
+                delay.write(input[index]);
+                delay.read()
+            })
+            .collect();
 
         // Mix with a Hadamard matrix
         let mut mixed = delayed;
         Hadamard::in_place(&mut mixed);
 
         // Flip some polarities
-        for c in 0..CHANNELS {
-            if self.flip_polarity[c] {
-                mixed[c] *= -1.;
+        self.flip_polarity.iter().enumerate().map(|(index, flip)| {
+            if *flip {
+                mixed[index] *= -1.;
             }
-        }
+        });
 
         return mixed;
     }

@@ -1,6 +1,4 @@
-mod array;
 mod basic_reverb;
-mod constants;
 mod delay;
 mod diffuser;
 mod mean;

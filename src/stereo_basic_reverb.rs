@@ -1,21 +1,29 @@
-use crate::{basic_reverb::BasicReverb, constants::CHANNELS};
+use crate::basic_reverb::BasicReverb;
 
 pub struct StereoBasicReverb {
     basic_reverb: BasicReverb,
 }
 
 impl StereoBasicReverb {
-    pub fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64, sample_rate: u32) -> Self {
+    pub fn new(
+        room_size_ms: f64,
+        rt60: f64,
+        dry: f64,
+        wet: f64,
+        channels: usize,
+        sample_rate: u32,
+    ) -> Self {
         Self {
-            basic_reverb: BasicReverb::new(room_size_ms, rt60, dry, wet, sample_rate),
+            basic_reverb: BasicReverb::new(room_size_ms, rt60, dry, wet, channels, sample_rate),
         }
     }
 
     pub fn process_sample(&mut self, sample: (f64, f64)) -> (f64, f64) {
-        let mut input = [0.; CHANNELS];
+        let channels = self.basic_reverb.channels;
+        let mut input = vec![0.; channels];
 
         // Duplicate input channels as many times as needed
-        for i in 0..CHANNELS / 2 {
+        for i in 0..channels / 2 {
             input[2 * i] = sample.0;
             input[2 * i + 1] = sample.1;
         }
@@ -24,11 +32,11 @@ impl StereoBasicReverb {
 
         // Mix down into stereo
         let mut sum = (0., 0.);
-        for i in 0..CHANNELS / 2 {
+        for i in 0..channels / 2 {
             sum.0 = output[2 * i];
             sum.1 = output[2 * i + 1];
         }
 
-        (sum.0 / (CHANNELS / 2) as f64, sum.1 / (CHANNELS / 2) as f64)
+        (sum.0 / (channels / 2) as f64, sum.1 / (channels / 2) as f64)
     }
 }
