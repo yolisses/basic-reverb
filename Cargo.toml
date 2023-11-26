@@ -1,6 +1,6 @@
 [package]
 name = "basic-reverb"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "A Rust implementation of the reverb presented at \"Let's Write A Reverb\""
 homepage = "https://github.com/yolisses/basic-reverb"
