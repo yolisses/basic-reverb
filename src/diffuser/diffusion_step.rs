@@ -6,7 +6,7 @@ use rand::Rng;
 pub(crate) struct DiffusionStep<const CHANNELS: usize, const SAMPLE_RATE: usize> {
     pub(crate) delay_ms_range: f64,
     delays: [Delay; CHANNELS],
-    flip_polarity: Vec<bool>,
+    flip_polarity: [bool; CHANNELS],
 }
 
 impl<const CHANNELS: usize, const SAMPLE_RATE: usize> DiffusionStep<CHANNELS, SAMPLE_RATE> {
@@ -25,7 +25,7 @@ impl<const CHANNELS: usize, const SAMPLE_RATE: usize> DiffusionStep<CHANNELS, SA
         });
 
         let mut random = rand::thread_rng();
-        let flip_polarity = (0..CHANNELS).map(|_| random.gen_bool(0.5)).collect();
+        let flip_polarity = array_init(|_| random.gen_bool(0.5));
 
         Self {
             delays,
