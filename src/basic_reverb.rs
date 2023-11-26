@@ -42,12 +42,16 @@ impl BasicReverb {
 
     pub fn process(&mut self, input: Vec<f64>) -> Vec<f64> {
         let channels = self.channels;
-        let diffuse = self.diffuser.process(input);
+        let diffuse = self.diffuser.process(input.clone());
         let long_lasting = self.feedback.process(diffuse);
+
         let mut output = Vec::with_capacity(channels);
-        for c in 0..channels {
-            output[c] = self.dry * input[c] + self.wet * long_lasting[c];
+        for i in 0..channels {
+            let dry = self.dry * input[i];
+            let wet = self.wet * long_lasting[i];
+            output[i] = dry + wet
         }
+
         output
     }
 }
