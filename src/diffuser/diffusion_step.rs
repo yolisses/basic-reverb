@@ -1,5 +1,5 @@
 use crate::array::Array;
-use crate::constants::{CHANNELS, SAMPLE_RATE};
+use crate::constants::CHANNELS;
 use crate::delay::Delay;
 use crate::mix_matrix::hadamard::Hadamard;
 use rand::Rng;
@@ -11,9 +11,9 @@ pub(crate) struct DiffusionStep {
 }
 
 impl DiffusionStep {
-    pub(crate) fn new() -> Self {
+    pub(crate) fn new(sample_rate: u32) -> Self {
         let delay_ms_range = 50.;
-        let delay_samples_range = delay_ms_range * 0.001 * SAMPLE_RATE;
+        let delay_samples_range = delay_ms_range * 0.001 * sample_rate as f64;
         let mut delays = vec![];
         let mut flip_polarity = [false; CHANNELS];
         for i in 0..CHANNELS {

@@ -1,5 +1,5 @@
 use crate::array::Array;
-use crate::constants::{CHANNELS, SAMPLE_RATE};
+use crate::constants::CHANNELS;
 use crate::delay::Delay;
 use crate::mix_matrix::householder::Householder;
 
@@ -9,10 +9,10 @@ pub(crate) struct MultiChannelMixedFeedback {
 }
 
 impl MultiChannelMixedFeedback {
-    pub(crate) fn new(delay_ms: f64, decay_gain: f64) -> Self {
+    pub(crate) fn new(delay_ms: f64, decay_gain: f64, sample_rate: u32) -> Self {
         let mut delays = vec![];
 
-        let delay_samples_base = delay_ms * 0.001 * SAMPLE_RATE;
+        let delay_samples_base = delay_ms * 0.001 * sample_rate as f64;
         for c in 0..CHANNELS {
             let r = c as f64 * 1.0 / CHANNELS as f64;
             let delay_size = (f64::powf(2., r) * delay_samples_base) as usize;

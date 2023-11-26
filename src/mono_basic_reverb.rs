@@ -5,9 +5,9 @@ pub struct MonoBasicReverb {
 }
 
 impl MonoBasicReverb {
-    pub fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64) -> Self {
+    pub fn new(room_size_ms: f64, rt60: f64, dry: f64, wet: f64, sample_rate: u32) -> Self {
         Self {
-            basic_reverb: BasicReverb::new(room_size_ms, rt60, dry, wet),
+            basic_reverb: BasicReverb::new(room_size_ms, rt60, dry, wet, sample_rate),
         }
     }
 
