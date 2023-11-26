@@ -13,7 +13,7 @@ impl DiffusionStep {
         let delay_ms_range = 50.;
         let delay_samples_range = delay_ms_range * 0.001 * sample_rate as f64;
 
-        let mut delays = Vec::with_capacity(channels);
+        let mut delays = vec![];
 
         for i in 0..channels {
             let range_low: i64 = (delay_samples_range * i as f64 / channels as f64) as i64;
