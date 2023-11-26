@@ -45,7 +45,7 @@ impl BasicReverb {
         let diffuse = self.diffuser.process(input.clone());
         let long_lasting = self.feedback.process(diffuse);
 
-        let mut output = vec![];
+        let mut output = Vec::with_capacity(channels);
         for i in 0..channels {
             let dry = self.dry * input[i];
             let wet = self.wet * long_lasting[i];
