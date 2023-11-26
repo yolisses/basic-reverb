@@ -10,10 +10,10 @@ pub(crate) struct MultiChannelMixedFeedback {
 impl MultiChannelMixedFeedback {
     pub(crate) fn new(delay_ms: f64, decay_gain: f64, channels: usize, sample_rate: u32) -> Self {
         let mut delays = vec![];
-
         let delay_samples_base: f64 = delay_ms * 0.001 * sample_rate as f64;
-        for c in 0..channels {
-            let r = c as f64 * 1.0 / channels as f64;
+
+        for i in 0..channels {
+            let r = i as f64 * 1.0 / channels as f64;
             let delay_size = (f64::powf(2., r) * delay_samples_base) as usize;
             delays.push(Delay::new(delay_size + 1));
         }
@@ -33,12 +33,12 @@ impl MultiChannelMixedFeedback {
         }
 
         // Mix using a Householder matrix
-        let mut mixed = delayed;
+        let mut mixed = delayed.clone();
         Householder::in_place(&mut mixed);
 
-        for c in 0..channels {
-            let sum = input[c] + mixed[c] * self.decay_gain;
-            self.delays[c].write(sum);
+        for i in 0..channels {
+            let sum = input[i] + mixed[i] * self.decay_gain;
+            self.delays[i].write(sum);
         }
 
         delayed
