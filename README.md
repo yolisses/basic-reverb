@@ -16,8 +16,6 @@ use std::path::Path;
 // wavers is not included on basic-reverb
 use wavers::{write, Wav};
 
-
-
 fn main() {
     let fp: &Path = &Path::new("path/to/the/input.wav");
     let out_fp: &Path = &Path::new("path/to/the/output.wav");
@@ -33,7 +31,13 @@ fn main() {
     let dry = 0.;
     let wet = 1.;
 
-    let mut basic_reverb: MonoBasicReverb<8, 44100> =
+    // a fixed sample rate is used to improve performance
+    const SAMPLE_RATE: u32 = 44100;
+
+    // should be a power of 2
+    const CHANNELS: usize = 8;
+
+    let mut basic_reverb: MonoBasicReverb<CHANNELS, SAMPLE_RATE> =
         MonoBasicReverb::new(room_size_ms, rt60, dry, wet);
 
     for i in 0..input_samples.len() {
