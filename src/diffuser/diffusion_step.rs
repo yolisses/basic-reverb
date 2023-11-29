@@ -46,9 +46,9 @@ impl<const CHANNELS: usize, const SAMPLE_RATE: u32> DiffusionStep<CHANNELS, SAMP
         Hadamard::in_place(&mut mixed);
 
         // Flip some polarities
-        for (index, flip) in self.flip_polarity.iter().enumerate() {
-            if *flip {
-                mixed[index] *= -1.;
+        for i in 0..CHANNELS {
+            if self.flip_polarity[i] {
+                mixed[i] *= -1.;
             }
         }
 
