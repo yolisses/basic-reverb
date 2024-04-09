@@ -12,3 +12,10 @@ license = "MIT"
 [dependencies]
 array-init = "2.1.0"
 rand = "0.8.5"
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "my_benchmark"
+harness = false
