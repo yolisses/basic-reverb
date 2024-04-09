@@ -25,21 +25,22 @@ mod tests {
 
     #[test]
     fn test_reverb_effect() {
+        // Get the input samples
         let mut input_file =
             File::open(Path::new("tests/pulse.wav")).expect("Can't open the input file");
         let (header, data) = wav::read(&mut input_file).expect("Can't convert the input file");
-
         let input_samples = get_float_samples(data.clone());
 
+        // Do the reverb processing
         let room_size_ms = 100.;
-        let duration_in_seconds = 5.;
+        let rt60 = 5.;
         let dry = 0.;
         let wet = 1.;
         const SAMPLE_RATE: u32 = 44100;
         const CHANNELS: usize = 8; // should be a power of 2
 
-        let mut basic_reverb: MonoBasicReverb<CHANNELS, SAMPLE_RATE> =
-            MonoBasicReverb::new(room_size_ms, duration_in_seconds, dry, wet);
+        let mut basic_reverb =
+            MonoBasicReverb::<CHANNELS, SAMPLE_RATE>::new(room_size_ms, rt60, dry, wet);
 
         let mut output_samples = Vec::with_capacity(input_samples.len());
 
@@ -49,6 +50,7 @@ mod tests {
             output_samples.push(output_sample);
         }
 
+        // Write the output file
         let data = get_bit_depth(output_samples);
         let mut output_file =
             File::create(Path::new("tests/output.wav")).expect("Can't create the output file");
