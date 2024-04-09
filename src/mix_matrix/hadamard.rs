@@ -1,4 +1,4 @@
-pub(crate) struct Hadamard {}
+pub struct Hadamard {}
 
 // Use like `Hadamard::inPlace(data)`
 // data.len() must be a power of 2
@@ -24,7 +24,7 @@ impl Hadamard {
         }
     }
 
-    pub(crate) fn in_place(data: &mut [f64]) {
+    pub fn in_place(data: &mut [f64]) {
         let size = data.len();
         Hadamard::recursive_unscaled(data);
 
