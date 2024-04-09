@@ -11,6 +11,7 @@ license = "MIT"
 
 [dependencies]
 array-init = "2.1.0"
+matrixmultiply = "0.3.8"
 rand = "0.8.5"
 
 [dev-dependencies]
