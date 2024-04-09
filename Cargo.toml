@@ -11,4 +11,9 @@ license = "MIT"
 
 [dependencies]
 array-init = "2.1.0"
+hound = "3.5.1"
 rand = "0.8.5"
+wav = "1.0.0"
+
+[dev-dependencies]
+wavers = "1.4.0"
