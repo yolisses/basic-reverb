@@ -45,8 +45,7 @@ mod tests {
 
         for i in 0..input_samples.len() {
             let input_sample = input_samples[i];
-            let output_sample = basic_reverb.process_sample(input_sample as f64);
-            println!("{}", output_sample);
+            let output_sample = basic_reverb.process_sample(input_sample);
             output_samples.push(output_sample);
         }
 
