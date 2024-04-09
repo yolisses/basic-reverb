@@ -13,7 +13,7 @@ impl<const SIZE: usize> Hadamard2<SIZE> {
         }
     }
 
-    pub unsafe fn process(&self, data: [f64; SIZE]) -> [f64; SIZE] {
+    pub fn process(&self, data: [f64; SIZE]) -> [f64; SIZE] {
         let result = multiply_matrixes([data], self.matrix);
         result[0]
     }
